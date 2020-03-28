@@ -43,6 +43,26 @@ public class CustomerController {
 		return 1;
 	}
 	
+	
+	/*
+	 * 
+	 [
+{"name":"Archana","age":29,"address":"QtNo-2209","atmNo":"1234","pinCode":2345,"bal":7000,"dob":"01/10/1988","panNo":"1234a"},
+{"name":"Prakash","age":30,"address":"QtNo-22010","atmNo":"7777","pinCode":1899,"bal":10000,"dob":"10/11/1987","panNo":"1234b"},
+{"name":"Rosy","age":29,"address":"QtNo-2209","atmNo":"1234","pinCode":2345,"bal":7000,"dob":"01/10/1988","panNo":"1234c"},
+{"name":"Sonu","age":30,"address":"QtNo-22010","atmNo":"7777","pinCode":1899,"bal":10000,"dob":"10/11/1987","panNo":"1234d"},
+{"name":"Dolly","age":29,"address":"QtNo-2209","atmNo":"1234","pinCode":2345,"bal":7000,"dob":"01/10/1988","panNo":"1234e"},
+{"name":"Vikash","age":30,"address":"QtNo-22010","atmNo":"7777","pinCode":1899,"bal":10000,"dob":"10/11/1987","panNo":"1234f"}
+	]
+	 */
+	
+	@PostMapping("/createCustomerList")
+	public Integer createCustomerDetailsList(@RequestBody List<Customer> customerList) {
+		System.out.println("Creating Customer Details : " +customerList.toString());
+		custList.addAll(customerList);
+		return 1;
+	}
+	
 	@DeleteMapping("/deleteCustomer/{panNo}")
 	public Integer deleteCustomer(@PathVariable String panNo) {
 		System.out.println("Deleting Customer Detail for given panNo : " + panNo);
