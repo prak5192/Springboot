@@ -1,7 +1,5 @@
 package com.example.Bank.controllers;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Bank.entity.Customer;
-import com.example.Bank.service.CustomerService;
 import com.example.Bank.service.CustomerServiceImpl;
 
 @RestController
@@ -35,16 +32,6 @@ public class CustomerController {
 	@GetMapping("/getCustomerList")
 	public List<Customer> getCustomerDetails() {
 		System.out.println("Fetching Customer List ");
-		Customer cust = new Customer();
-		/*
-		 * cust.setName("Prakash"); cust.setAge(30); cust.setAddress("QtNo-22010");
-		 * cust.setAtmNo("7777"); cust.setPinCode(1899L); cust.setBal(10000L);
-		 * cust.setDob("10/11/1987"); cust.setPanNo("AUMPR42990");
-		 */
-		// custList.add(new
-		// Customer("Archana",29,"QtNo-2209","1234",2345L,7000L,"01/10/1988","CKVPS3258M"));
-		// custList.add(cust);
-		customerServiceImpl.display();
 		return customerServiceImpl.getCustomerDetailsService();
 	}
 
@@ -67,7 +54,6 @@ public class CustomerController {
 	@PostMapping("/createCustomerList")
 	public String createCustomerDetailsList(@RequestBody List<Customer> customerList) {
 		System.out.println("Creating Customer Details : " + customerList.toString());
-		// custList.addAll(customerList);
 		String res = customerServiceImpl.createCustomerDetailsListService(customerList);
 		return res;
 	}
@@ -75,7 +61,6 @@ public class CustomerController {
 	@PostMapping("/createCustomer")
 	public String createCustomerDetails(@RequestBody Customer customer) {
 		System.out.println("Creating Customer Details : " + customer.toString());
-		// custList.add(customer);
 		String res = customerServiceImpl.createCustomerDetailsService(customer);
 		return res;
 	}
