@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,13 +37,6 @@ public class CustomerController {
 		return custList;
 	}
 	
-	@PostMapping("/createCustomer")
-	public Integer createCustomerDetails(@RequestBody Customer customer) {
-		System.out.println("Creating Customer Details : " +customer.toString());
-		custList.add(customer);
-		return 1;
-	}
-	
 	
 	/*
 	 * 
@@ -60,6 +54,14 @@ public class CustomerController {
 	public Integer createCustomerDetailsList(@RequestBody List<Customer> customerList) {
 		System.out.println("Creating Customer Details : " +customerList.toString());
 		custList.addAll(customerList);
+		return 1;
+	}
+	
+	
+	@PostMapping("/createCustomer")
+	public Integer createCustomerDetails(@RequestBody Customer customer) {
+		System.out.println("Creating Customer Details : " +customer.toString());
+		custList.add(customer);
 		return 1;
 	}
 	
@@ -88,5 +90,26 @@ public class CustomerController {
 			return -1;
 		}
 	}
+	
+	@PutMapping("/UpdateCustomer/{panNo}")
+	public Integer updateCustomer(@PathVariable String panNo,@RequestBody String name) {
+		System.out.println("Upadating Customer Name for given panNo : " +panNo);
+		boolean flag = false;
+		Iterator<Customer> itr = custList.iterator();
+		while(itr.hasNext()) {
+			Customer cust = (Customer)itr.next();
+			if(cust.getPanNo().equalsIgnoreCase(panNo)) {
+				cust.setName(name);
+				flag= true;
+			}
+		}
+		if (flag) {
+			return 0;
+		} else {
+			return -1;
+		} 
+		
+	}
+	
 
 }
