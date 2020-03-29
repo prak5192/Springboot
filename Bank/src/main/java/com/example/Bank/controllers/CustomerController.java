@@ -12,19 +12,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Bank.entity.Customer;
-import com.example.Bank.service.CustomerServiceImpl;
+import com.example.Bank.service.CustomerService;
 
 @RestController
 public class CustomerController {
 	@Autowired(required = true)
-	private CustomerServiceImpl customerServiceImpl;
+	private CustomerService customerService;
 
-	public CustomerServiceImpl getCustomerServiceImpl() {
-		return customerServiceImpl;
+	public CustomerService getCustomerServiceImpl() {
+		return customerService;
 	}
 
-	public void setCustomerServiceImpl(CustomerServiceImpl customerServiceImpl) {
-		this.customerServiceImpl = customerServiceImpl;
+	public void setCustomerService(CustomerService customerService) {
+		this.customerService = customerService;
 	}
 
 	// List<Customer> custList = new ArrayList<>();
@@ -32,7 +32,7 @@ public class CustomerController {
 	@GetMapping("/getCustomerList")
 	public List<Customer> getCustomerDetails() {
 		System.out.println("Fetching Customer List ");
-		return customerServiceImpl.getCustomerDetailsService();
+		return customerService.getCustomerDetailsService();
 	}
 
 	/*
@@ -54,21 +54,21 @@ public class CustomerController {
 	@PostMapping("/createCustomerList")
 	public String createCustomerDetailsList(@RequestBody List<Customer> customerList) {
 		System.out.println("Creating Customer Details : " + customerList.toString());
-		String res = customerServiceImpl.createCustomerDetailsListService(customerList);
+		String res = customerService.createCustomerDetailsListService(customerList);
 		return res;
 	}
 
 	@PostMapping("/createCustomer")
 	public String createCustomerDetails(@RequestBody Customer customer) {
 		System.out.println("Creating Customer Details : " + customer.toString());
-		String res = customerServiceImpl.createCustomerDetailsService(customer);
+		String res = customerService.createCustomerDetailsService(customer);
 		return res;
 	}
 
 	@DeleteMapping("/deleteCustomer/{panNo}")
 	public String deleteCustomer(@PathVariable String panNo) {
 		System.out.println("Deleting Customer Detail for given panNo : " + panNo);
-		return  customerServiceImpl.deleteCustomerService(panNo);
+		return  customerService.deleteCustomerService(panNo);
 	
 	}
 	 
@@ -76,7 +76,7 @@ public class CustomerController {
 	@PutMapping("/UpdateCustomer/{panNo}")
 	public String updateCustomer(@PathVariable String panNo, @RequestBody String name) {
 		System.out.println("Upadating Customer Name for given panNo : " + panNo);
-		return customerServiceImpl.updateCustomerService(panNo, name);
+		return customerService.updateCustomerService(panNo, name);
 
 	}
 

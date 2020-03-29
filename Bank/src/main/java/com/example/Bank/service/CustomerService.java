@@ -2,8 +2,11 @@ package com.example.Bank.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.example.Bank.entity.Customer;
 
+@Service
 public interface CustomerService {
 	
 	public void display();
