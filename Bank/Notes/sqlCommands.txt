@@ -1,0 +1,28 @@
+
+create database restapi;
+use restapi;
+show tables;
+create table Customer
+
+
+CREATE TABLE Customer (
+		cust_id INT NOT NULL AUTO_INCREMENT,
+		name VARCHAR(50), 
+		age  INT,
+		address VARCHAR(50), 
+		atm_no VARCHAR(10),
+		pin_code INT,
+		bal INT,
+		dob VARCHAR(10),
+		pan_no VARCHAR(10), 
+		birth VARCHAR(20), 
+		creation_date DATE,
+		PRIMARY KEY ( cust_id ) 
+		);
+		
+	
+		
+DROP TABLE Customer;
+
+
+DELETE FROM Customer;
