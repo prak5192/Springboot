@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.example.Bank.configuration.HibernateConfiguration;
 import com.example.Bank.dao.CustomerRepository;
 import com.example.Bank.entity.Customer;
 

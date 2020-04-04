@@ -21,6 +21,8 @@ public interface CustomerService {
 	
 	public String updateCustomerService(String panNo,String name);
 	
+	public String addBalanceAmountForSpecifiedCustomer(String panNo,Long  pinCode,Long bal );
+	
 	
 	
 

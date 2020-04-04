@@ -7,14 +7,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.Bank.dao.CustomerAtmDao;
 import com.example.Bank.dao.CustomerRepository;
 import com.example.Bank.entity.Customer;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 	
-	@Autowired(required = true)
+	@Autowired
 	private CustomerRepository customerRepository;
+	
+	@Autowired
+	private CustomerAtmDao customerAtmDao;
 	
 	List<Customer> custList = new ArrayList<>();
 	Customer cust = new Customer();
@@ -26,7 +30,8 @@ public class CustomerServiceImpl implements CustomerService {
 	public String createCustomerDetailsService(Customer customer) {
 		System.out.println("[CustomerServiceImpl]:[createCustomerDetailsService]: Input: " + customer.toString());
 		//custList.add(customer);//saving in cache.
-		customerRepository.save(customer);
+		customerAtmDao.saveCustomerDetails(customer);
+		
 		return "SUCCESS";
 	}
 	
@@ -34,33 +39,21 @@ public class CustomerServiceImpl implements CustomerService {
 	public String createCustomerDetailsListService(List<Customer> customerList) {
 		System.out.println("[CustomerServiceImpl]:[createCustomerDetailsListService]: Input: " + customerList.toString());
 		//custList.addAll(customerList);
-		customerRepository.saveAll(customerList);
+		customerAtmDao.saveAllCustomerList(customerList);
 		return "SUCCESS";
 		
 		
 	}
 	public List<Customer> getCustomerDetailsService(){
 		System.out.println("[CustomerServiceImpl]:[getCustomerDetailsService]: Input: ");
-		List<Customer> list = (List<Customer>)customerRepository.findAll();
+		List<Customer> list = (List<Customer>)customerAtmDao.getCustomerDetails();
 		return list;
 	}
 	
 	public String deleteCustomerService(String panNo) {
 		System.out.println("[CustomerServiceImpl]:[deleteCustomerService]: Input: " + panNo);
-		Iterator<Customer> itr = custList.iterator();
-		boolean flag = false;
-		while(itr.hasNext()) {
-			Customer cust = (Customer)itr.next();
-			if(cust.getPanNo().equalsIgnoreCase(panNo)) {
-				itr.remove();
-				flag =true;
-			}
-		}
-		if(flag) {
-			return "SUCCESS";
-		}else {
-			return "FAILURE";
-		}
+		customerAtmDao.deleteCustomer(panNo);
+		return "SUCCESS";
 	}
 	
 	
@@ -74,5 +67,18 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return "FAILURE";
 	}
-
+	
+	public String addBalanceAmountForSpecifiedCustomer(String panNo,Long  pinCode,Long bal ) {
+		System.out.println("[CustomerServiceImpl]:[addBalanceAmountForSpecifiedCustomer]: Input: " + panNo );
+		Customer cust = customerAtmDao.fetchCustomerBypanNo(panNo);
+		if(cust != null) {
+			Long balance = cust.getBal() + bal;
+			cust.setBal(balance);
+			customerAtmDao.saveCustomerDetails(cust);
+			return "SUCCESS";
+		} else {
+			return "FAILURE";
+		}
+	}
+	
 }
