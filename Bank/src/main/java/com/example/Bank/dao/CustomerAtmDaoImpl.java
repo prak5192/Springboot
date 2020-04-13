@@ -79,5 +79,25 @@ public class CustomerAtmDaoImpl implements CustomerAtmDao {
 		
 	}
 	
+	@Override
+	public void saveTransactionDetails(com.example.Bank.entity.Transaction transaction) {
+		System.out.println("[CustomerAtmDaoImpl]:[saveTransactionDetails]: Input: " + transaction.toString() );
+		Session session = sessionFactory.getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		session.saveOrUpdate(transaction);
+		tx.commit();
+	}
+	
+	@Override
+	public List<com.example.Bank.entity.Transaction> getMiniStatementForGivenUser(String panNo) {
+		System.out.println("[CustomerAtmDaoImpl]:[getMiniStatementForGivenUser]: Input: " + panNo.toString() );
+		Session session = sessionFactory.getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		Query query = session.createQuery("from Transaction where panNo= :panNofromUI ");
+		query.setString("panNofromUI", panNo);
+		List<com.example.Bank.entity.Transaction> trans = (List<com.example.Bank.entity.Transaction>) query.list();
+		tx.commit();
+		return trans;
+	}
 
 }

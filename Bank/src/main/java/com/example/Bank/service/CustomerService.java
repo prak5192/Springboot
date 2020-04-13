@@ -23,6 +23,12 @@ public interface CustomerService {
 	
 	public String addBalanceAmountForSpecifiedCustomer(String panNo,Long  pinCode,Long bal );
 	
+	public String withdrawBalance(String panNo,Long  pinCode,Long bal );
+	
+	public Long getCurrentBalance(String panNo,Long  pinCode);
+	
+	public String fetchMiniStatement(String panNo,Long  pinCode);
+	
 	
 	
 

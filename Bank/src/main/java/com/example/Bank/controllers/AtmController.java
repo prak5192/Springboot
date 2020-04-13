@@ -3,6 +3,7 @@ package com.example.Bank.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,10 +21,32 @@ public class AtmController {
 	private CustomerService customerService;
 
 	@PostMapping("/addBalToGivenCustomer")
-	
+
 	public String addBalanceAmountForSpecifiedCustomer(@RequestBody ATMDto atmDto) {
-		System.out.println("Adding Balance to Given  Customer  : " +atmDto.toString() );
-		String res = customerService.addBalanceAmountForSpecifiedCustomer(atmDto.getPanNo(),  atmDto.getPinCode(), atmDto.getBal());
+		System.out.println("Adding Balance to Given  Customer  : " + atmDto.toString());
+		String res = customerService.addBalanceAmountForSpecifiedCustomer(atmDto.getPanNo(), atmDto.getPinCode(),
+				atmDto.getBal());
 		return res;
+	}
+
+	@PostMapping("/withdrawdBalForGivenCustomer")
+
+	public String withdrawBalanceAmountForSpecifiedCustomer(@RequestBody ATMDto atmDto) {
+		System.out.println("Adding Balance to Given  Customer  : " + atmDto.toString());
+		String res = customerService.withdrawBalance(atmDto.getPanNo(), atmDto.getPinCode(), atmDto.getBal());
+		return res;
+	}
+
+	@GetMapping("/getCurrentBalanceForGivenCustomer")
+
+	public Long getCurrentBalanceAmountForSpecifiedCustomer(@RequestBody ATMDto atmDto) {
+		System.out.println("Fetching  Balance to Given  Customer  : " + atmDto.toString());
+		return customerService.getCurrentBalance(atmDto.getPanNo(), atmDto.getPinCode());
+	}
+	@PostMapping("/getMiniStatementForGivenCustomer")
+ 
+	public String getMiniStatementForGivenCustomer(@RequestBody ATMDto atmDto) {
+		System.out.println("Fetching  Mini Statement for Given  Customer  : " + atmDto.toString());
+		return customerService.fetchMiniStatement(atmDto.getPanNo(), atmDto.getPinCode());
 	}
 }
