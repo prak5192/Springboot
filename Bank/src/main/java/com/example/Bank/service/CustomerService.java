@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.Bank.entity.Customer;
+import com.example.Bank.entity.Transaction;
 
 @Service
 public interface CustomerService {
@@ -28,6 +29,7 @@ public interface CustomerService {
 	public Long getCurrentBalance(String panNo,Long  pinCode);
 	
 	public String fetchMiniStatement(String panNo,Long  pinCode);
+	
 	
 	
 	

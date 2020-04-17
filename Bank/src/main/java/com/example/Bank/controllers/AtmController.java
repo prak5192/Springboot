@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Bank.dto.ATMDto;
 import com.example.Bank.entity.Customer;
+import com.example.Bank.entity.Transaction;
 import com.example.Bank.service.AtmService;
 import com.example.Bank.service.CustomerService;
 
@@ -43,10 +44,14 @@ public class AtmController {
 		System.out.println("Fetching  Balance to Given  Customer  : " + atmDto.toString());
 		return customerService.getCurrentBalance(atmDto.getPanNo(), atmDto.getPinCode());
 	}
+	
 	@PostMapping("/getMiniStatementForGivenCustomer")
- 
+	@ResponseBody
+	//public String getMiniStatementForGivenCustomer(@RequestParam String panNo, @RequestParam Long pinCode) {
 	public String getMiniStatementForGivenCustomer(@RequestBody ATMDto atmDto) {
 		System.out.println("Fetching  Mini Statement for Given  Customer  : " + atmDto.toString());
 		return customerService.fetchMiniStatement(atmDto.getPanNo(), atmDto.getPinCode());
 	}
+	
+	
 }

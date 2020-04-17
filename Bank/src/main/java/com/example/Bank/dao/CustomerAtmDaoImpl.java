@@ -87,17 +87,29 @@ public class CustomerAtmDaoImpl implements CustomerAtmDao {
 		session.saveOrUpdate(transaction);
 		tx.commit();
 	}
-	
+	 
 	@Override
 	public List<com.example.Bank.entity.Transaction> getMiniStatementForGivenUser(String panNo) {
 		System.out.println("[CustomerAtmDaoImpl]:[getMiniStatementForGivenUser]: Input: " + panNo.toString() );
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		Query query = session.createQuery("from Transaction where panNo= :panNofromUI ");
-		query.setString("panNofromUI", panNo);
-		List<com.example.Bank.entity.Transaction> trans = (List<com.example.Bank.entity.Transaction>) query.list();
-		tx.commit();
-		return trans;
+		/*
+		 * Transaction tx = session.beginTransaction(); //Query query =
+		 * session.createQuery("from Transaction where panNo= :panNofromUI ");
+		 * //query.setString("panNofromUI", panNo); Query query1 =
+		 * session.createQuery("from Transaction order by transDate DESC,panNo ASC");
+		 * //query1. query1.setFirstResult(1); query1.setMaxResults(5);
+		 * //query1.setString("panNofromUI", panNo);
+		 * 
+		 * //List<com.example.Bank.entity.Transaction> trans =
+		 * (List<com.example.Bank.entity.Transaction>) query.list();
+		 * List<com.example.Bank.entity.Transaction> trans1 =
+		 * (List<com.example.Bank.entity.Transaction>) query1.list();
+		 */
+		List<com.example.Bank.entity.Transaction> trans1 = session.createQuery("from com.example.Bank.entity.Transaction order by transDate DESC LIMIT 5").list();
+
+		
+		//tx.commit();
+		return trans1;
 	}
 
 }
