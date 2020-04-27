@@ -17,7 +17,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private Long userId;
+	private Long id;
 	
 	@Column(name = "name", unique = true, nullable = false)
 	private String name;
@@ -35,17 +35,19 @@ public class User {
 	private String comments;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="User_id")
 	List<Resturant> resturant ;
 	
-	public Long getUserId() {
-		return userId;
-	}
 	
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -98,7 +100,7 @@ public class User {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		result = prime * result + ((resturant == null) ? 0 : resturant.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 	@Override
@@ -140,16 +142,12 @@ public class User {
 				return false;
 		} else if (!resturant.equals(other.resturant))
 			return false;
-		if (userId == null) {
-			if (other.userId != null)
-				return false;
-		} else if (!userId.equals(other.userId))
-			return false;
+		
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", name=" + name + ", address=" + address + ", phone=" + phone + ", dob="
+		return "User [userId=" + id + ", name=" + name + ", address=" + address + ", phone=" + phone + ", dob="
 				+ dob + ", comments=" + comments + ", resturant=" + resturant + "]";
 	}
 	

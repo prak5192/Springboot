@@ -19,7 +19,6 @@ public class Resturant {
 	private String resturantName;
 	
 	@ManyToOne
-	//@Column(name = "user_id", nullable = false)
 	private User user;
 	
 	public Long getResturantId() {

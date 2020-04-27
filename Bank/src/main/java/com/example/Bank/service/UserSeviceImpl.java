@@ -1,5 +1,6 @@
 package com.example.Bank.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.Bank.dao.CustomerAtmDao;
 import com.example.Bank.dao.CustomerRepository;
 import com.example.Bank.dao.UserDao;
+import com.example.Bank.dto.UserDto;
 import com.example.Bank.entity.Resturant;
 import com.example.Bank.entity.User;
 
@@ -30,6 +32,23 @@ public class UserSeviceImpl implements UserService{
 		userDao.saveUserDetailsToDao(user);
 		return "SUCCESS";
 		
+	}
+	
+	public List<UserDto> getUserExtraDetailService(){
+		System.out.println("[UserSeviceImpl]:[getUserExtraDetailService]: Input: " );
+		List<User> userList = userDao.getUserExtraDetails();
+		List<UserDto> userDto = new ArrayList<UserDto>();
+		for(User temp : userList ) {
+			UserDto userObj = new UserDto ();
+			userObj.setName(temp.getName());
+			userObj.setDob(temp.getDob());
+			userObj.setPhone(temp.getPhone());
+			userObj.setCity("BANGALORE");
+			userObj.setCollege("SIT");
+			userObj.setMovie("GOOD");
+			userDto.add(userObj);
+		}
+		return userDto;
 	}
 
 }
